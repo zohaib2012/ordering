@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import api from '../utils/api';
 
 const AuthContext = createContext();
 
@@ -23,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const response = await api.post('/auth/login', { email, password });
       const { token, user: userData } = response.data;
       
       localStorage.setItem('token', token);
@@ -60,8 +61,9 @@ export const AuthProvider = ({ children }) => {
 
 const register = async (formData) => {
   try {
-    const response = await axios.post(
-      'http://localhost:5000/api/auth/register',
+    console.log(axios)
+    const response = await api.post(
+      '/auth/register',
       formData
     );
 
@@ -97,7 +99,7 @@ const register = async (formData) => {
 
   const updateProfile = async (profileData) => {
     try {
-      const response = await axios.put('http://localhost:5000/api/auth/profile', profileData);
+      const response = await api.put('/auth/profile', profileData);
       const updatedUser = { ...user, ...response.data.user };
       
       localStorage.setItem('user', JSON.stringify(updatedUser));
