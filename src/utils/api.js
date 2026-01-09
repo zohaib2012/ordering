@@ -1,21 +1,31 @@
 import axios from 'axios';
 
 // const API_URL = import.meta.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-// const API_URL = import.meta.env.PROD
-//   ? import.meta.env.VITE_API_URL
-//   : 'http://localhost:5000/api';
+// const API_URL = import.meta.env.VITE_API_URL; // <- VITE_ prefix mandatory
 
- const API_URL = import.meta.env.MODE === "production"
-      ? 'https://online-ordering-system-server.vercel.app/api'
-      : "http://localhost:5000/api";
+// console.log('API URL:', API_URL); // debug
+// console.log(import.meta.env.MODE);         // "production"
+// console.log(import.meta.env.VITE_API_URL); // "https://online-ordering-system-server.vercel.app/api"
 
 
-// Create axios instance with default config
+// const api = axios.create({
+//   baseURL: API_URL,
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   withCredentials: true,
+// });
+
+// Simple baseURL strategy
+const API_URL =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:5000/api' // dev backend
+    : 'https://online-ordering-system-server.vercel.app/api'; // production backend
+
 const api = axios.create({
   baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
 });
 
 // Request interceptor to add token
