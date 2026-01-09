@@ -6,7 +6,7 @@ import axios from 'axios';
 //   : 'http://localhost:5000/api';
 
  const API_URL = import.meta.env.MODE === "production"
-      ? import.meta.env.REACT_APP_API_URL
+      ? 'https://online-ordering-system-server.vercel.app/api'
       : "http://localhost:5000/api";
 
 
