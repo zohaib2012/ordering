@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import api from '../utils/api';
 
 const Checkout = () => {
   const { user } = useAuth();
@@ -40,7 +41,7 @@ const Checkout = () => {
         orderNote
       };
 
-      const response = await axios.post('http://localhost:5000/api/orders', orderData);
+      const response = await api.post('/orders', orderData);
       
       toast.success('Order placed successfully!');
       clearCart();
